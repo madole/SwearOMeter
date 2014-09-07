@@ -82,7 +82,7 @@ var InputForm = React.createClass({
         <div id='form' className={this.state.formClassName}>
           <img src='images/arrow.png' className={this.state.arrowClassName} />
           <input id='username' ref='username' onKeyPress={this.handleKey} className={this.state.usernameClassName} type='text' placeholder={placeholder} />
-          <input type='image' id='submit' onClick={this.getSwearsFromServer} src={src} />
+          <button id='submit' onClick={this.getSwearsFromServer}>Submit</button>
         </div>
         <Spinner ref='spinner'/>
         <Result ref='result' />
@@ -165,13 +165,18 @@ var Result = React.createClass({
       result: resultObj.resultText,
       resultClassName: 'animated fadeIn'
     });
+    this.refs.resetButton.showResetButton();
   },
   render: function() {
     return (
-      <div className={this.state.resultClassName}>
-        <div id="user"   dangerouslySetInnerHTML={{__html: this.state.username}}></div>
-        <div id="result" dangerouslySetInnerHTML={{__html: this.state.result}}></div>
-        <TweetCycler />
+      <div>
+        <div className={this.state.resultClassName}>
+          <div id="user"   dangerouslySetInnerHTML={{__html: this.state.username}}></div>
+          <div id="result" dangerouslySetInnerHTML={{__html: this.state.result}}></div>
+          <TweetCycler />
+        </div>
+        <br />
+        <ResetButton ref='resetButton' />
       </div>
     );
   }
@@ -208,6 +213,25 @@ var Footer = React.createClass({
   }
 });
 
+var ResetButton = React.createClass({
+  getInitialState: function() {
+    return {
+      resetButtonClassName: 'hide'
+    }
+  },
+  handleClick: function() {
+    //TODO: just reset all the compoents
+    location.reload();
+  },
+  showResetButton: function() {
+    this.setState({resetButtonClassName: 'reset animated bounceInLeft'});
+  },
+  render: function() {
+    return (
+      <button className={this.state.resetButtonClassName} onClick={this.handleClick}>Reset</button>
+    )
+  }
+})
 
 /**
  * This component will display the custom react componenets that

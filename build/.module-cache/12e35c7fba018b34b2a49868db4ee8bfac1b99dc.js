@@ -169,13 +169,10 @@ var Result = React.createClass({displayName: 'Result',
   },
   render: function() {
     return (
-      React.DOM.div(null, 
-        React.DOM.div({className: this.state.resultClassName}, 
-          React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
-          React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
-          TweetCycler(null)
-        ), 
-        React.DOM.br(null), 
+      React.DOM.div({className: this.state.resultClassName}, 
+        React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
+        React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
+        TweetCycler(null), 
         ResetButton({ref: "resetButton"})
       )
     );
@@ -224,11 +221,11 @@ var ResetButton = React.createClass({displayName: 'ResetButton',
     location.reload();
   },
   showResetButton: function() {
-    this.setState({resetButtonClassName: 'reset animated bounceInLeft'});
+    this.setState({resetButtonClassName: 'animated bounceInLeft'});
   },
   render: function() {
     return (
-      React.DOM.button({className: this.state.resetButtonClassName, onClick: this.handleClick}, "Reset")
+      React.DOM.button({className: "pullRight", onClick: this.handleClick}, "Reset")
     )
   }
 })

@@ -165,18 +165,13 @@ var Result = React.createClass({displayName: 'Result',
       result: resultObj.resultText,
       resultClassName: 'animated fadeIn'
     });
-    this.refs.resetButton.showResetButton();
   },
   render: function() {
     return (
-      React.DOM.div(null, 
-        React.DOM.div({className: this.state.resultClassName}, 
-          React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
-          React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
-          TweetCycler(null)
-        ), 
-        React.DOM.br(null), 
-        ResetButton({ref: "resetButton"})
+      React.DOM.div({className: this.state.resultClassName}, 
+        React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
+        React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
+        TweetCycler(null)
       )
     );
   }
@@ -219,16 +214,9 @@ var ResetButton = React.createClass({displayName: 'ResetButton',
       resetButtonClassName: 'hide'
     }
   },
-  handleClick: function() {
-    //TODO: just reset all the compoents
-    location.reload();
-  },
-  showResetButton: function() {
-    this.setState({resetButtonClassName: 'reset animated bounceInLeft'});
-  },
   render: function() {
     return (
-      React.DOM.button({className: this.state.resetButtonClassName, onClick: this.handleClick}, "Reset")
+      React.DOM.button({className: "pullRight", onClick: this.handleClick}, "Reset")
     )
   }
 })

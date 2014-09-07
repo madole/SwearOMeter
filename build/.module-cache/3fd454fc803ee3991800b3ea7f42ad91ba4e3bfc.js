@@ -82,7 +82,7 @@ var InputForm = React.createClass({displayName: 'InputForm',
         React.DOM.div({id: "form", className: this.state.formClassName}, 
           React.DOM.img({src: "images/arrow.png", className: this.state.arrowClassName}), 
           React.DOM.input({id: "username", ref: "username", onKeyPress: this.handleKey, className: this.state.usernameClassName, type: "text", placeholder: placeholder}), 
-          React.DOM.button({id: "submit", onClick: this.getSwearsFromServer}, "Submit")
+          React.DOM.input({type: "image", id: "submit", onClick: this.getSwearsFromServer, src: src})
         ), 
         Spinner({ref: "spinner"}), 
         Result({ref: "result"})
@@ -165,18 +165,13 @@ var Result = React.createClass({displayName: 'Result',
       result: resultObj.resultText,
       resultClassName: 'animated fadeIn'
     });
-    this.refs.resetButton.showResetButton();
   },
   render: function() {
     return (
-      React.DOM.div(null, 
-        React.DOM.div({className: this.state.resultClassName}, 
-          React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
-          React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
-          TweetCycler(null)
-        ), 
-        React.DOM.br(null), 
-        ResetButton({ref: "resetButton"})
+      React.DOM.div({className: this.state.resultClassName}, 
+        React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
+        React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
+        TweetCycler(null)
       )
     );
   }
@@ -206,32 +201,14 @@ var Footer = React.createClass({displayName: 'Footer',
           React.DOM.a({href: myTwitter}, 
             React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
           ), 
-          React.DOM.span(null, "Created by ", React.DOM.a({href: myGithub}, myName))
+          React.DOM.span(null, "Created by ", React.DOM.a({href: myGithub}, myName)), 
+          React.DOM.button({className: "reset"}, "Reset")
         )
       )
     );
   }
 });
 
-var ResetButton = React.createClass({displayName: 'ResetButton',
-  getInitialState: function() {
-    return {
-      resetButtonClassName: 'hide'
-    }
-  },
-  handleClick: function() {
-    //TODO: just reset all the compoents
-    location.reload();
-  },
-  showResetButton: function() {
-    this.setState({resetButtonClassName: 'reset animated bounceInLeft'});
-  },
-  render: function() {
-    return (
-      React.DOM.button({className: this.state.resetButtonClassName, onClick: this.handleClick}, "Reset")
-    )
-  }
-})
 
 /**
  * This component will display the custom react componenets that

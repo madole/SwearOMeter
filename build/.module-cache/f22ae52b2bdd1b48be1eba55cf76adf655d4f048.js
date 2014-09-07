@@ -224,7 +224,7 @@ var ResetButton = React.createClass({displayName: 'ResetButton',
     location.reload();
   },
   showResetButton: function() {
-    this.setState({resetButtonClassName: 'reset animated bounceInLeft'});
+    this.setState({resetButtonClassName: 'animated bounceInLeft reset'});
   },
   render: function() {
     return (

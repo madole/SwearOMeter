@@ -28,8 +28,10 @@ a:hover{
 }
 
 .hide{
-  display: none;
+    display: none;
 }
+
+
 
 /*******************TITLE*******************/
 #title {
@@ -168,3 +170,26 @@ a:hover{
 }
 
 /********************SPINNER********************/
+/********************BUTTON*********************/
+button{
+    font: 400 1.5em 'Walter Turncoat', Helvetica, Sans-serif;
+    color: lightGray;
+    background: transparent;
+    border: none !important;
+    cursor: pointer;
+    text-decoration:underline;
+}
+button:hover{
+    color:gray;
+}
+
+.reset{
+    text-align: right;
+    position:absolute;
+    bottom:150px;
+    right: 10%;
+    width:100px;
+    height:50px;
+}
+/********************BUTTON*********************/
+
