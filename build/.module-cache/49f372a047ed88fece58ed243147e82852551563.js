@@ -44,7 +44,7 @@ var InputForm = React.createClass({displayName: 'InputForm',
     };
   },
   componentDidMount: function() {
-    this.setState({formClassName: 'animated bounceInDown'});
+    this.setState({formClassName: 'animated bounceInLeft'});
   },
   getSwearsFromServer: function(event) {
     var _this     = this;
@@ -192,7 +192,7 @@ var Footer = React.createClass({displayName: 'Footer',
     var myTwitter = 'http://twitter.com/madole';
 
     return (
-      React.DOM.footer({id: "footer"}, 
+      React.DOM.footer({id: "footer", className: "footer"}, 
         React.DOM.div({className: this.state.footerClassName}, 
           React.DOM.a({href: myTwitter}, 
             React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
@@ -213,8 +213,10 @@ var App = React.createClass({displayName: 'App',
   render: function() {
     return(
       React.DOM.div(null, 
-        Header(null), 
-        InputForm(null), 
+        React.DOM.div({className: "page-wrap"}, 
+          Header(null), 
+          InputForm(null)
+        ), 
         Footer(null)
        )
     );

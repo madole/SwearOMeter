@@ -40,6 +40,14 @@ a:hover{
 #title > .blue {
     color: lightskyblue;
 }
+
+#subTitle {
+    text-align: center;
+    font-size: 24px;
+    color: lightskyblue;
+
+}
+
 /*******************TITLE*******************/
 
 /********************FORM********************/
@@ -85,6 +93,10 @@ a:hover{
 
 #footer {
     text-align: center;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:100px;
 }
 
 #twittericon {
@@ -96,21 +108,6 @@ a:hover{
     text-align: center;
 }
 
-.page-wrap {
-    min-height: 100%;
-    /* equal to footer height */
-    margin-bottom: -100px;
-}
-
-.page-wrap:after {
-    content: "";
-    display: block;
-}
-
-.footer, .page-wrap:after {
-    /* .push must be the same height as footer */
-    height: 100px;
-}
 
 /********************FOOTER*********************/
 

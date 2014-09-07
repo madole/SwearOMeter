@@ -44,7 +44,7 @@ var InputForm = React.createClass({displayName: 'InputForm',
     };
   },
   componentDidMount: function() {
-    this.setState({formClassName: 'animated bounceInDown'});
+    this.setState({formClassName: 'animated bounceInLeft'});
   },
   getSwearsFromServer: function(event) {
     var _this     = this;

@@ -6,24 +6,20 @@
 var Header = React.createClass({displayName: 'Header',
   getInitialState: function() {
     return {
-      headerClassName : '',
-      subTitleClassName : '',
-
+      headerClassName : ''
     }
   },
   componentDidMount: function() {
-    this.setState({headerClassName: 'animated bounceInRight'});
-    this.setState({subTitleClassName: 'animated bounceInLeft'});
+    this.setState({headerClassName: 'animated bounceInRight'})
   },
   render: function() {
     var tweetometer = ['SWEAR-',React.DOM.span({className: "blue"}, "O"), '-METER'];
     return ( 
       React.DOM.span(null, 
-        React.DOM.div({className: this.state.headerClassName, id: "title"}, tweetometer), 
-        React.DOM.div({className: this.state.subTitleClassName, id: "subTitle"}, 
+        React.DOM.h1({className: this.state.headerClassName, id: "title"}, tweetometer), 
+        React.DOM.h5({className: this.state.headerClassName}, 
           "Have you ever wondered how much you swear on twitter?"
         ), 
-        React.DOM.br(null), 
         React.DOM.hr(null)
       )
     );
@@ -44,7 +40,7 @@ var InputForm = React.createClass({displayName: 'InputForm',
     };
   },
   componentDidMount: function() {
-    this.setState({formClassName: 'animated bounceInDown'});
+    this.setState({formClassName: 'animated bounceInLeft'});
   },
   getSwearsFromServer: function(event) {
     var _this     = this;
@@ -192,7 +188,7 @@ var Footer = React.createClass({displayName: 'Footer',
     var myTwitter = 'http://twitter.com/madole';
 
     return (
-      React.DOM.footer({id: "footer"}, 
+      React.DOM.footer({id: "footer", className: "footer"}, 
         React.DOM.div({className: this.state.footerClassName}, 
           React.DOM.a({href: myTwitter}, 
             React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
@@ -213,8 +209,10 @@ var App = React.createClass({displayName: 'App',
   render: function() {
     return(
       React.DOM.div(null, 
-        Header(null), 
-        InputForm(null), 
+        React.DOM.div({className: "page-wrap"}, 
+          Header(null), 
+          InputForm(null)
+        ), 
         Footer(null)
        )
     );

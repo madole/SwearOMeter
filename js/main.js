@@ -6,17 +6,27 @@
 var Header = React.createClass({
   getInitialState: function() {
     return {
-      headerClassName: ''
+      headerClassName : '',
+      subTitleClassName : '',
+
     }
   },
   componentDidMount: function() {
-    this.setState({headerClassName: 'animated bounceInRight'})
+    this.setState({headerClassName: 'animated bounceInRight'});
+    this.setState({subTitleClassName: 'animated bounceInLeft'});
   },
   render: function() {
     var tweetometer = ['SWEAR-',<span className='blue'>O</span>, '-METER'];
     return ( 
-      <span><h1 className={this.state.headerClassName} id='title'>{tweetometer}</h1> <hr /></span>
-      );
+      <span>
+        <div className={this.state.headerClassName} id='title'>{tweetometer}</div> 
+        <div className={this.state.subTitleClassName} id='subTitle'>
+          Have you ever wondered how much you swear on twitter?
+        </div>
+        <br />
+        <hr />
+      </span>
+    );
   }
 });
 
@@ -29,16 +39,16 @@ var Header = React.createClass({
 var InputForm = React.createClass({
   getInitialState: function() {
     return {
-      formClassName: '',
-      usernameClassName: ''
+      formClassName     : '',
+      usernameClassName : ''
     };
   },
   componentDidMount: function() {
-    this.setState({formClassName: 'animated bounceInLeft'});
+    this.setState({formClassName: 'animated bounceInDown'});
   },
   getSwearsFromServer: function(event) {
-    var _this = this;
-    var username    = this.refs.username.state.value;
+    var _this     = this;
+    var username  = this.refs.username.state.value;
     if(!username) {
       this.setState({usernameClassName:'animated bounce'});
       setTimeout(function(){
@@ -73,7 +83,7 @@ var InputForm = React.createClass({
         <Spinner ref='spinner'/>
         <Result ref='result' />
       </div>
-      )
+    );
   }
 });
 
@@ -100,7 +110,7 @@ var Spinner = React.createClass({
         <div id='double-bounce1'></div>
         <div id='double-bounce2'></div>
        </div>
-    )
+    );
   }
 });
 
@@ -121,7 +131,7 @@ var TweetCycler = React.createClass({
         <div id="cycler"></div>
         <div id="cycler2"></div>
       </div>
-    )
+    );
   }
 });
 
@@ -133,9 +143,9 @@ var TweetCycler = React.createClass({
 var Result = React.createClass({
   getInitialState: function() {
     return {
-      username: '',
-      result: '',
-      resultClassName: ''
+      username        : '',
+      result          : '',
+      resultClassName : ''
     };
   },
   buildResultStrings: function(username, obj) {
@@ -155,11 +165,11 @@ var Result = React.createClass({
   render: function() {
     return (
       <div className={this.state.resultClassName}>
-        <div id="user" dangerouslySetInnerHTML={{__html: this.state.username}}></div>
+        <div id="user"   dangerouslySetInnerHTML={{__html: this.state.username}}></div>
         <div id="result" dangerouslySetInnerHTML={{__html: this.state.result}}></div>
         <TweetCycler />
       </div>
-    )
+    );
   }
 });
 
@@ -177,12 +187,12 @@ var Footer = React.createClass({
     this.setState({footerClassName: 'animated bounceInUp'});
   },
   render: function() {
-    var myName = 'Andrew McDowell';
-    var myGithub = 'http://github.com/madole';
+    var myName    = 'Andrew McDowell';
+    var myGithub  = 'http://github.com/madole';
     var myTwitter = 'http://twitter.com/madole';
 
     return (
-      <footer id='footer' className='footer'> 
+      <footer id='footer'> 
         <div className={this.state.footerClassName}> 
           <a href={myTwitter} >
             <img src='images/twitter.png' id='twittericon' alt='twitter' /> 
@@ -190,7 +200,7 @@ var Footer = React.createClass({
           <span>Created by <a href={myGithub}>{myName}</a></span> 
         </div>
       </footer>
-    )
+    );
   }
 });
 
@@ -203,13 +213,11 @@ var App = React.createClass({
   render: function() {
     return(
       <div>
-        <div className='page-wrap'>
-          <Header />
-          <InputForm />
-        </div>
+        <Header />
+        <InputForm />
         <Footer />
        </div>
-    )
+    );
   }
 });
 
