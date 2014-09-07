@@ -134,8 +134,7 @@ var Result = React.createClass({displayName: 'Result',
   getInitialState: function() {
     return {
       username: '',
-      result: '',
-      resultClassName: ''
+      result: ''
     };
   },
   buildResultStrings: function(username, obj) {
@@ -148,13 +147,12 @@ var Result = React.createClass({displayName: 'Result',
     var resultObj = this.buildResultStrings(user, result);
     this.setState({
       username: resultObj.twitterUsername,
-      result: resultObj.resultText,
-      resultClassName: 'animated fadeIn'
+      result: resultObj.resultText
     });
   },
   render: function() {
     return (
-      React.DOM.div({className: this.state.resultClassName}, 
+      React.DOM.div(null, 
         React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
         React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
         TweetCycler(null)
@@ -168,14 +166,6 @@ var Result = React.createClass({displayName: 'Result',
  * github and my twitter feed
  */
 var Footer = React.createClass({displayName: 'Footer',
-  getInitialState: function() {
-    return {
-      footerClassName: ''
-    }
-  },
-  componentDidMount: function() {
-    this.setState({footerClassName: 'animated bounceInUp'});
-  },
   render: function() {
     var myName = 'Andrew McDowell';
     var myGithub = 'http://github.com/madole';
@@ -183,12 +173,10 @@ var Footer = React.createClass({displayName: 'Footer',
 
     return (
       React.DOM.footer({id: "footer", className: "footer"}, 
-        React.DOM.div({className: this.state.footerClassName}, 
-          React.DOM.a({href: myTwitter}, 
-            React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
-          ), 
-          React.DOM.span(null, "Created by ", React.DOM.a({href: myGithub}, myName))
-        )
+        React.DOM.a({href: myTwitter}, 
+          React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
+        ), 
+        React.DOM.span(null, "Created by ", React.DOM.a({href: myGithub}, myName))
       )
     )
   }

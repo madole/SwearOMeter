@@ -10,12 +10,13 @@ var Header = React.createClass({displayName: 'Header',
     }
   },
   componentDidMount: function() {
-    this.setState({headerClassName: 'animated bounceInRight'})
+    this.setState({headerClassName: 'animate bounceInLeft'})
+   
   },
   render: function() {
     var tweetometer = ['SWEAR-',React.DOM.span({className: "blue"}, "O"), '-METER'];
     return ( 
-      React.DOM.span(null, React.DOM.h1({className: this.state.headerClassName, id: "title"}, tweetometer), " ", React.DOM.hr(null))
+      React.DOM.span({className: this.state.headerClassName}, React.DOM.h1({id: "title"}, tweetometer), " ", React.DOM.hr(null))
       );
   }
 });
@@ -27,15 +28,6 @@ var Header = React.createClass({displayName: 'Header',
  * the server
  */
 var InputForm = React.createClass({displayName: 'InputForm',
-  getInitialState: function() {
-    return {
-      formClassName: '',
-      usernameClassName: ''
-    };
-  },
-  componentDidMount: function() {
-    this.setState({formClassName: 'animated bounceInLeft'});
-  },
   getSwearsFromServer: function(event) {
     var _this = this;
     var username    = this.refs.username.state.value;
@@ -59,6 +51,12 @@ var InputForm = React.createClass({displayName: 'InputForm',
     if(event.which === 13) {
       this.getSwearsFromServer();
     } 
+  },
+  getInitialState: function() {
+    return {
+      formClassName: '',
+      usernameClassName: ''
+    };
   },
   render: function() {
     var placeholder = '@username';
@@ -134,8 +132,7 @@ var Result = React.createClass({displayName: 'Result',
   getInitialState: function() {
     return {
       username: '',
-      result: '',
-      resultClassName: ''
+      result: ''
     };
   },
   buildResultStrings: function(username, obj) {
@@ -148,13 +145,12 @@ var Result = React.createClass({displayName: 'Result',
     var resultObj = this.buildResultStrings(user, result);
     this.setState({
       username: resultObj.twitterUsername,
-      result: resultObj.resultText,
-      resultClassName: 'animated fadeIn'
+      result: resultObj.resultText
     });
   },
   render: function() {
     return (
-      React.DOM.div({className: this.state.resultClassName}, 
+      React.DOM.div(null, 
         React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
         React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
         TweetCycler(null)
@@ -168,14 +164,6 @@ var Result = React.createClass({displayName: 'Result',
  * github and my twitter feed
  */
 var Footer = React.createClass({displayName: 'Footer',
-  getInitialState: function() {
-    return {
-      footerClassName: ''
-    }
-  },
-  componentDidMount: function() {
-    this.setState({footerClassName: 'animated bounceInUp'});
-  },
   render: function() {
     var myName = 'Andrew McDowell';
     var myGithub = 'http://github.com/madole';
@@ -183,12 +171,10 @@ var Footer = React.createClass({displayName: 'Footer',
 
     return (
       React.DOM.footer({id: "footer", className: "footer"}, 
-        React.DOM.div({className: this.state.footerClassName}, 
-          React.DOM.a({href: myTwitter}, 
-            React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
-          ), 
-          React.DOM.span(null, "Created by ", React.DOM.a({href: myGithub}, myName))
-        )
+        React.DOM.a({href: myTwitter}, 
+          React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
+        ), 
+        React.DOM.span(null, "Created by ", React.DOM.a({href: myGithub}, myName))
       )
     )
   }

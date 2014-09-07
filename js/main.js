@@ -4,10 +4,18 @@
  * horizontal rule below it
  */
 var Header = React.createClass({
+  getInitialState: function() {
+    return {
+      headerClassName: ''
+    }
+  },
+  componentDidMount: function() {
+    this.setState({headerClassName: 'animated bounceInRight'})
+  },
   render: function() {
     var tweetometer = ['SWEAR-',<span className='blue'>O</span>, '-METER'];
     return ( 
-      <span><h1 id='title'>{tweetometer}</h1> <hr /></span>
+      <span><h1 className={this.state.headerClassName} id='title'>{tweetometer}</h1> <hr /></span>
       );
   }
 });
@@ -19,12 +27,27 @@ var Header = React.createClass({
  * the server
  */
 var InputForm = React.createClass({
+  getInitialState: function() {
+    return {
+      formClassName: '',
+      usernameClassName: ''
+    };
+  },
+  componentDidMount: function() {
+    this.setState({formClassName: 'animated bounceInLeft'});
+  },
   getSwearsFromServer: function(event) {
     var _this = this;
     var username    = this.refs.username.state.value;
-
+    if(!username) {
+      this.setState({usernameClassName:'animated bounce'});
+      setTimeout(function(){
+        _this.setState({usernameClassName: ''});
+      }, 1000);
+      return;
+    }
     this.refs.spinner.showSpinner(true);
-    this.setState({className: 'animated hinge'});
+    this.setState({formClassName: 'animated hinge'});
 
     $.getJSON('http://afternoon-citadel-9782.herokuapp.com/getSwearWords?username='+ username +'', function(obj) {
      // showTweetCycler(obj.tweets);
@@ -32,10 +55,10 @@ var InputForm = React.createClass({
      _this.refs.result.fillInData(username, obj);
     });
   },
-  getInitialState: function() {
-    return {
-      className: ''
-    };
+  handleKey: function(event) {
+    if(event.which === 13) {
+      this.getSwearsFromServer();
+    } 
   },
   render: function() {
     var placeholder = '@username';
@@ -43,8 +66,8 @@ var InputForm = React.createClass({
 
     return(
       <div>
-        <div id='form' className={this.state.className}>
-          <input id='username' ref='username' type='text' placeholder={placeholder} />
+        <div id='form' className={this.state.formClassName}>
+          <input id='username' ref='username' onKeyPress={this.handleKey} className={this.state.usernameClassName} type='text' placeholder={placeholder} />
           <input type='image' id='submit' onClick={this.getSwearsFromServer} src={src} />
         </div>
         <Spinner ref='spinner'/>
@@ -87,9 +110,14 @@ var Spinner = React.createClass({
  * swear words 
  */
 var TweetCycler = React.createClass({
+  getInitialState: function() {
+    return {
+      cycleClassName: 'hide'
+    }
+  }, 
   render: function() {
     return (
-      <div id='cyclerContainer'>
+      <div id='cyclerContainer' className={this.state.cycleClassName}>
         <div id="cycler"></div>
         <div id="cycler2"></div>
       </div>
@@ -106,7 +134,8 @@ var Result = React.createClass({
   getInitialState: function() {
     return {
       username: '',
-      result: ''
+      result: '',
+      resultClassName: ''
     };
   },
   buildResultStrings: function(username, obj) {
@@ -119,14 +148,16 @@ var Result = React.createClass({
     var resultObj = this.buildResultStrings(user, result);
     this.setState({
       username: resultObj.twitterUsername,
-      result: resultObj.resultText
+      result: resultObj.resultText,
+      resultClassName: 'animated fadeIn'
     });
   },
   render: function() {
     return (
-      <div>
+      <div className={this.state.resultClassName}>
         <div id="user" dangerouslySetInnerHTML={{__html: this.state.username}}></div>
         <div id="result" dangerouslySetInnerHTML={{__html: this.state.result}}></div>
+        <TweetCycler />
       </div>
     )
   }
@@ -137,17 +168,27 @@ var Result = React.createClass({
  * github and my twitter feed
  */
 var Footer = React.createClass({
+  getInitialState: function() {
+    return {
+      footerClassName: ''
+    }
+  },
+  componentDidMount: function() {
+    this.setState({footerClassName: 'animated bounceInUp'});
+  },
   render: function() {
     var myName = 'Andrew McDowell';
     var myGithub = 'http://github.com/madole';
     var myTwitter = 'http://twitter.com/madole';
 
     return (
-      <footer id='footer'>  
-        <a href={myTwitter}>
-          <img src='images/twitter.png' id='twittericon' alt='twitter' /> 
-        </a>
-        <span>Created by <a href={myGithub}>{myName}</a></span> 
+      <footer id='footer' className='footer'> 
+        <div className={this.state.footerClassName}> 
+          <a href={myTwitter} >
+            <img src='images/twitter.png' id='twittericon' alt='twitter' /> 
+          </a>
+          <span>Created by <a href={myGithub}>{myName}</a></span> 
+        </div>
       </footer>
     )
   }

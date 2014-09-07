@@ -134,8 +134,7 @@ var Result = React.createClass({displayName: 'Result',
   getInitialState: function() {
     return {
       username: '',
-      result: '',
-      resultClassName: ''
+      result: ''
     };
   },
   buildResultStrings: function(username, obj) {
@@ -148,13 +147,12 @@ var Result = React.createClass({displayName: 'Result',
     var resultObj = this.buildResultStrings(user, result);
     this.setState({
       username: resultObj.twitterUsername,
-      result: resultObj.resultText,
-      resultClassName: 'animated fadeIn'
+      result: resultObj.resultText
     });
   },
   render: function() {
     return (
-      React.DOM.div({className: this.state.resultClassName}, 
+      React.DOM.div(null, 
         React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
         React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
         TweetCycler(null)
