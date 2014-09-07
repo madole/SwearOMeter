@@ -25,6 +25,7 @@ var Header = React.createClass({
         </div>
         <br />
         <hr />
+        <br />
       </span>
     );
   }
