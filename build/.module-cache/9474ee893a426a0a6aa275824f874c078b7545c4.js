@@ -3,7 +3,7 @@
  * This component is the header on the webpage and includes a
  * horizontal rule below it
  */
-var Header = React.createClass({
+var Header = React.createClass({displayName: 'Header',
   getInitialState: function () {
     return {
       headerClassName: '',
@@ -17,17 +17,17 @@ var Header = React.createClass({
   },
 
   render: function () {
-    var tweetometer = ['SWEAR-', <span className='blue'>O</span>, '-METER'];
+    var tweetometer = ['SWEAR-', React.DOM.span({className: "blue"}, "O"), '-METER'];
     return (
-      <span>
-        <div className={this.state.headerClassName} id='title'>{tweetometer}</div>
-        <div className={this.state.subTitleClassName} id='subTitle'>
-        Have you ever wondered how much you swear on twitter?
-        </div>
-        <br />
-        <hr />
-        <br />
-      </span>
+      React.DOM.span(null, 
+        React.DOM.div({className: this.state.headerClassName, id: "title"}, tweetometer), 
+        React.DOM.div({className: this.state.subTitleClassName, id: "subTitle"}, 
+        "Have you ever wondered how much you swear on twitter?"
+        ), 
+        React.DOM.br(null), 
+        React.DOM.hr(null), 
+        React.DOM.br(null)
+      )
     );
   }
 });
@@ -37,7 +37,7 @@ var Header = React.createClass({
  * Input form where the user can enter the data to submit to
  * the server
  */
-var InputForm = React.createClass({
+var InputForm = React.createClass({displayName: 'InputForm',
   getInitialState: function () {
     return {
       formClassName: '',
@@ -83,16 +83,16 @@ var InputForm = React.createClass({
     var src = 'images/submit.gif';
 
     return(
-      <div>
-        <div id='form' className={this.state.formClassName}>
-          <img src='images/arrow.png' className={this.state.arrowClassName} />
-          <input id='username' ref='username' onKeyPress={this.handleKey} className={this.state.usernameClassName} type='text' placeholder={placeholder} />
-          <button id='submit' onClick={this.getSwearsFromServer}>Submit</button>
-        </div>
-        <Spinner ref='spinner'/>
-        <TweetCycler ref='tweetCycler'/>
-        <Result ref='result' />
-      </div>
+      React.DOM.div(null, 
+        React.DOM.div({id: "form", className: this.state.formClassName}, 
+          React.DOM.img({src: "images/arrow.png", className: this.state.arrowClassName}), 
+          React.DOM.input({id: "username", ref: "username", onKeyPress: this.handleKey, className: this.state.usernameClassName, type: "text", placeholder: placeholder}), 
+          React.DOM.button({id: "submit", onClick: this.getSwearsFromServer}, "Submit")
+        ), 
+        Spinner({ref: "spinner"}), 
+        TweetCycler({ref: "tweetCycler"}), 
+        Result({ref: "result"})
+      )
     );
   }
 });
@@ -101,7 +101,7 @@ var InputForm = React.createClass({
 /**
  * Spinner component for display when loading data during the ajax call
  */
-var Spinner = React.createClass({
+var Spinner = React.createClass({displayName: 'Spinner',
   getInitialState: function () {
     return {
       className: 'hide'
@@ -118,10 +118,10 @@ var Spinner = React.createClass({
 
   render: function () {
     return (
-      <div id='spinner' className={this.state.className}>
-        <div id='double-bounce1'></div>
-        <div id='double-bounce2'></div>
-      </div>
+      React.DOM.div({id: "spinner", className: this.state.className}, 
+        React.DOM.div({id: "double-bounce1"}), 
+        React.DOM.div({id: "double-bounce2"})
+      )
     );
   }
 });
@@ -131,7 +131,7 @@ var Spinner = React.createClass({
  * This component cycles through the tweets that contain the
  * swear words
  */
-var TweetCycler = React.createClass({
+var TweetCycler = React.createClass({displayName: 'TweetCycler',
   getInitialState: function () {
     return {
       cycleClassName: 'hide'
@@ -148,11 +148,11 @@ var TweetCycler = React.createClass({
       tweet = _this.getRandomTweet(tweets);
       _this.setState({
         tweet: tweet,
-        cycleClassName: 'animated bounceInLeft'
+        cycleClassName: 'animated bounceInRight'
       });
       setTimeout(function() {
         _this.setState({
-          cycleClassName: 'animated bounceOutRight'
+          cycleClassName: 'animated bounchOutRight'
         });
       }, 3000)
     }, 5000);
@@ -160,9 +160,9 @@ var TweetCycler = React.createClass({
 
   render: function () {
     return (
-      <div id='cyclerContainer' className={this.state.cycleClassName}>
-        <div id="cycler" dangerouslySetInnerHTML={{__html: this.state.tweet}}></div>
-      </div>
+      React.DOM.div({id: "cyclerContainer", className: this.state.cycleClassName}, 
+        React.DOM.div({id: "cycler", dangerouslySetInnerHTML: {__html: this.state.tweet}})
+      )
     );
   }
 });
@@ -172,7 +172,7 @@ var TweetCycler = React.createClass({
  * This component will display the data returned from the twitter api
  * on the server
  */
-var Result = React.createClass({
+var Result = React.createClass({displayName: 'Result',
   getInitialState: function () {
     return {
       username: '',
@@ -200,15 +200,15 @@ var Result = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <div className={this.state.resultClassName}>
-          <div id="user"   dangerouslySetInnerHTML={{__html: this.state.username}}></div>
-          <div id="result" dangerouslySetInnerHTML={{__html: this.state.result}}></div>
-          <TweetCycler />
-        </div>
-        <br />
-        <ResetButton ref='resetButton' />
-      </div>
+      React.DOM.div(null, 
+        React.DOM.div({className: this.state.resultClassName}, 
+          React.DOM.div({id: "user", dangerouslySetInnerHTML: {__html: this.state.username}}), 
+          React.DOM.div({id: "result", dangerouslySetInnerHTML: {__html: this.state.result}}), 
+          TweetCycler(null)
+        ), 
+        React.DOM.br(null), 
+        ResetButton({ref: "resetButton"})
+      )
     );
   }
 });
@@ -217,7 +217,7 @@ var Result = React.createClass({
  * This component will display the footer with a link to my
  * github and my twitter feed
  */
-var Footer = React.createClass({
+var Footer = React.createClass({displayName: 'Footer',
   getInitialState: function () {
     return {
       footerClassName: ''
@@ -234,22 +234,22 @@ var Footer = React.createClass({
     var myTwitter = 'http://twitter.com/madole';
 
     return (
-      <footer id='footer'>
-        <div className={this.state.footerClassName}>
-          <a href={myTwitter} >
-            <img src='images/twitter.png' id='twittericon' alt='twitter' />
-          </a>
-          <br />
-          <span>Created by
-            <a href={myGithub}>{myName}</a>
-          </span>
-        </div>
-      </footer>
+      React.DOM.footer({id: "footer"}, 
+        React.DOM.div({className: this.state.footerClassName}, 
+          React.DOM.a({href: myTwitter}, 
+            React.DOM.img({src: "images/twitter.png", id: "twittericon", alt: "twitter"})
+          ), 
+          React.DOM.br(null), 
+          React.DOM.span(null, "Created by", 
+            React.DOM.a({href: myGithub}, myName)
+          )
+        )
+      )
     );
   }
 });
 
-var ResetButton = React.createClass({
+var ResetButton = React.createClass({displayName: 'ResetButton',
   getInitialState: function () {
     return {
       resetButtonClassName: 'hide'
@@ -267,7 +267,7 @@ var ResetButton = React.createClass({
 
   render: function () {
     return (
-      <button className={this.state.resetButtonClassName} onClick={this.handleClick}>Reset</button>
+      React.DOM.button({className: this.state.resetButtonClassName, onClick: this.handleClick}, "Reset")
     );
   }
 })
@@ -276,20 +276,20 @@ var ResetButton = React.createClass({
  * This component will display the custom react componenets that
  * are needed to display the app
  */
-var App = React.createClass({
+var App = React.createClass({displayName: 'App',
   render: function () {
     return(
-      <div>
-        <Header />
-        <InputForm />
-        <Footer />
-      </div>
+      React.DOM.div(null, 
+        Header(null), 
+        InputForm(null), 
+        Footer(null)
+      )
     );
   }
 });
 
 React.renderComponent(
-  <App />, document.getElementById('content')
+  App(null), document.getElementById('content')
 );
 
 

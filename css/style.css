@@ -122,7 +122,12 @@ a:hover{
 
 
 /********************TWEETCYCLER********************/
-#cycler, #cycler2 {
+#cyclerContainer{
+    position: absolute;
+    bottom:30%;
+    text-align: center;
+}
+#cycler {
     font-size: 2em;
     text-align: center;
 
