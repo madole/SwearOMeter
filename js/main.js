@@ -240,7 +240,7 @@ var Footer = React.createClass({
             <img src='images/twitter.png' id='twittericon' alt='twitter' />
           </a>
           <br />
-          <span>Created by
+          <span>Created by 
             <a href={myGithub}>{myName}</a>
           </span>
         </div>
