@@ -124,6 +124,7 @@ a:hover{
 /********************TWEETCYCLER********************/
 #cyclerContainer{
     position: absolute;
+    width: 100%;
     bottom:30%;
     text-align: center;
 }
